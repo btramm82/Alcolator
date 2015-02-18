@@ -41,6 +41,8 @@
     self.resultLabel = label;
     self.calculateButton = button;
     self.hideKeyboardTapGestureRecognizer = tap;
+//  Title for new wine page
+    self.title = NSLocalizedString(@"Wine", @"wine");
 }
 
 - (void)viewDidLoad {
@@ -85,8 +87,11 @@
     CGFloat itemWidth = viewWidth - padding - padding;
     CGFloat itemHeight = 44;
     
-    self.beerPercentTextField.frame = CGRectMake(padding, padding, itemWidth, itemHeight);
-    
+    if (viewWidth > 320){
+        self.beerPercentTextField.frame = CGRectMake(padding, padding * 2, itemWidth, itemHeight);
+    } else {
+        self.beerPercentTextField.frame = CGRectMake(padding, padding * 5, itemWidth, itemHeight);
+    }
     CGFloat bottomOfTextField = CGRectGetMaxY(self.beerPercentTextField.frame);
     self.beerCountSlider.frame = CGRectMake(padding, bottomOfTextField + padding, itemWidth, itemHeight);
     
