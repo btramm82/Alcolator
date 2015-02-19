@@ -14,8 +14,18 @@
 
 @implementation WhiskeyViewController
 
-- (void)buttonPressed:(UIButton *)sender;
-{
+- (instancetype) init {
+    self = [super init];
+    
+    if (self) {
+        self.title = NSLocalizedString(@"Whiskey", @"Whiskey");
+    }
+    return self;
+
+}
+
+-(void) updateSliderAndLabel {
+    
     [self.beerPercentTextField resignFirstResponder];
     
     int numberOfBeers = self.beerCountSlider.value;
@@ -52,9 +62,15 @@
 }
 
 
+
+- (void)buttonPressed:(UIButton *)sender {
+    [self.beerPercentTextField resignFirstResponder];
+    [self updateSliderAndLabel];
+}
+
 - (void) viewDidLoad {
     [super viewDidLoad];
-    self.title = NSLocalizedString(@"Whiskey", @"whiskey");
+    self.view.backgroundColor = [UIColor colorWithRed:0.992 green:0.992 blue:0.588 alpha:1];
 }
 
 @end

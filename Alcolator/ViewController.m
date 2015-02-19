@@ -41,8 +41,7 @@
     self.resultLabel = label;
     self.calculateButton = button;
     self.hideKeyboardTapGestureRecognizer = tap;
-//  Title for new wine page
-    self.title = NSLocalizedString(@"Wine", @"wine");
+    
 }
 
 - (void)viewDidLoad {
@@ -76,7 +75,8 @@
     
 // Gets rid of the maximum number of lines on the label
     self.resultLabel.numberOfLines = 0;
-
+// Sets Wine Tab as New Background Color
+    self.view.backgroundColor = [UIColor colorWithRed:0.741 green:0.925 blue:0.714 alpha:1];
 }
 
 - (void) viewWillLayoutSubviews {
@@ -90,7 +90,7 @@
     if (viewWidth > 320){
         self.beerPercentTextField.frame = CGRectMake(padding, padding * 2, itemWidth, itemHeight);
     } else {
-        self.beerPercentTextField.frame = CGRectMake(padding, padding * 5, itemWidth, itemHeight);
+        self.beerPercentTextField.frame = CGRectMake(padding, padding * 2, itemWidth, itemHeight);
     }
     CGFloat bottomOfTextField = CGRectGetMaxY(self.beerPercentTextField.frame);
     self.beerCountSlider.frame = CGRectMake(padding, bottomOfTextField + padding, itemWidth, itemHeight);
@@ -104,6 +104,21 @@
     CGFloat bottomOfLabel = CGRectGetMaxY(self.resultLabel.frame);
     self.calculateButton.frame = CGRectMake(padding, bottomOfLabel + padding, itemWidth, itemHeight);
 }
+
+- (instancetype) init {
+    self = [super init];
+    
+    if (self) {
+        self.title = NSLocalizedString(@"Wine", @"Wine");
+        [self.tabBarItem setTitlePositionAdjustment:UIOffsetMake(0, -18)];
+    
+    }
+  
+    return self;
+
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -168,9 +183,18 @@
     [self updateSliderAndLabel];
     self.numberOfBeers.text = [NSString stringWithFormat:@"%f", self.beerCountSlider.value];
     [self.beerPercentTextField resignFirstResponder];
-
-
+    [self.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", (int) sender.value]];
+    
+    int numberOfBeers = self.beerCountSlider.value;
+    if ([self.title containsString:@"Wine"]) {
+        self.title = [NSString stringWithFormat:@"Wine - %d glasses",numberOfBeers];
+    } else {
+        self.title = [NSString stringWithFormat:@"Whiskey - %d shots",numberOfBeers];
+    }
+    
 }
+
+
 - (void)buttonPressed:(UIButton *)sender {
     [self.beerPercentTextField resignFirstResponder];
      [self updateSliderAndLabel];
